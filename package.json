@@ -1,0 +1,24 @@
+{
+  "name": "backend-grerin",
+  "version": "1.0.0",
+  "description": "test app for backend",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "env-cmd -f ./config/dev.env nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://repository.vrpconsulting.com/grigory.sidorin/backend-grerin.git"
+  },
+  "author": "Grigory Sidorin",
+  "license": "ISC",
+  "dependencies": {
+    "env-cmd": "^10.1.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}
