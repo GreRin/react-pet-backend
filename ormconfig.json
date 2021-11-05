@@ -1,0 +1,19 @@
+{
+  "type": "mssql",
+  "host": "localhost",
+  "port": "",
+  "username": "sa",
+  "password": "1qazxsw2!QAZXSW@",
+  "database": "FUNDS_DB",
+  "synchronize": true,
+  "logging": false,
+  "entities": [
+    "src/entity/**/*.ts"
+  ],
+  "migrations": [
+    "src/migration/**/*.ts"
+  ],
+  "subscribers": [
+    "src/subscriber/**/*.ts"
+  ]
+}

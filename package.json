@@ -1,24 +1,21 @@
 {
-  "name": "backend-grerin",
-  "version": "1.0.0",
-  "description": "test app for backend",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "node src/index.js",
-    "dev": "env-cmd -f ./config/dev.env nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://repository.vrpconsulting.com/grigory.sidorin/backend-grerin.git"
-  },
-  "author": "Grigory Sidorin",
-  "license": "ISC",
-  "dependencies": {
-    "env-cmd": "^10.1.0",
-    "express": "^4.17.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.14"
-  }
+   "name": "backend-grerin",
+   "version": "0.0.1",
+   "description": "Awesome project developed with TypeORM.",
+   "devDependencies": {
+      "@types/node": "^8.0.29",
+      "ts-node": "3.3.0",
+      "typescript": "3.3.3333"
+   },
+   "dependencies": {
+      "body-parser": "^1.18.1",
+      "dotenv": "^10.0.0",
+      "express": "^4.15.4",
+      "mssql": "^4.0.4",
+      "reflect-metadata": "^0.1.10",
+      "typeorm": "0.2.38"
+   },
+   "scripts": {
+      "start": "ts-node src/index.ts"
+   }
 }
