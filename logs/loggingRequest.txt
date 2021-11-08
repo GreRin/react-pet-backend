@@ -1,0 +1,3 @@
+LOG: POST /users/ Query parameters: {} Body: {"name":"Ryhor Sidoryn","login":"grerin","password":"55779988"} 404 
+LOG: POST /user/ Query parameters: {} Body: {"name":"Ryhor Sidoryn","login":"grerin","password":"55779988"} 201 
+LOG: POST /user/ Query parameters: {} Body: {"name":"Alex Snihirou","login":"snigiri","password":"1234567"} 201 

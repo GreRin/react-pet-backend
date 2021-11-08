@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-// import { router as fundsRouter } from './resources/users/user.router';
+import { router as userRouter } from './resources/users/user.router';
 // import { router as  donationsRouter } from './resources/boards/boards.router';
 import { logger } from './middlewares/index';
 import "reflect-metadata";
@@ -20,6 +20,7 @@ app.use('/', (req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
+app.use('/user', userRouter);
 // app.use('/funds', fundsRouter);
 // app.use('/donations', donationsRouter);
 

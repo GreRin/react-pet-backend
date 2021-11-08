@@ -1,18 +1,27 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+// import { Id } from '../types/index';
+// import { Task } from './Task';
 
-@Entity()
+@Entity({name: 'user'})
 export class User {
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @Column('varchar', {length: 225})
+    name: string;
+
+    @Column('varchar', {length: 225})
+    login: string;
 
     @Column()
-    firstName: string;
+    password: string;
 
-    @Column()
-    lastName: string;
+    // @OneToMany<Task>(() => Task, (task: Task): Id => task.userId as Id, { cascade: true })
+    // tasks: Task[];
 
-    @Column()
-    age: number;
-
+    static toResponse(user?: Partial<User>): Partial<User> | undefined {
+        if (!user) return undefined;
+        const { id, name, login } = user;
+        return { id, name, login };
+    }
 }
