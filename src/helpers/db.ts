@@ -1,10 +1,8 @@
 import { getConnection, createConnection, Connection } from 'typeorm';
 import { config } from '../common/ormconfig';
 
-/* eslint-disable no-console */
-
 export const connectToDB = async (): Promise<void> => {
-  let connection: Connection | null = null;
+  let connection: Connection;
 
   try {
     connection = getConnection();
@@ -23,9 +21,4 @@ export const connectToDB = async (): Promise<void> => {
   } catch (error) {
     console.error(error);
   }
-};
-
-export const tryDBConnect = async (cb: () => void): Promise<void> => {
-  await connectToDB();
-  cb();
-};
+}
