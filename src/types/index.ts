@@ -22,3 +22,12 @@ export interface IUser extends IEntity {
 };
 
 export type IUserDto = Omit<IUser, 'id'>;
+
+export interface IFund extends IEntity {
+  name: string;
+  totalFunds: number;
+  createdAt?: Date;
+  updatedAt: Date;
+};
+
+export type IFundDto = Omit<IFund, 'id'>;

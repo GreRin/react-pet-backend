@@ -1,3 +1,2 @@
-LOG: POST /users/ Query parameters: {} Body: {"name":"Ryhor Sidoryn","login":"grerin","password":"55779988"} 404 
-LOG: POST /user/ Query parameters: {} Body: {"name":"Ryhor Sidoryn","login":"grerin","password":"55779988"} 201 
-LOG: POST /user/ Query parameters: {} Body: {"name":"Alex Snihirou","login":"snigiri","password":"1234567"} 201 
+LOG: PUT /funds/f850fc16-3b24-4ffc-b758-8be89544f32f Query parameters: {} Body: {"name":"Smith Family Fund","totalFunds":100000} 200 
+LOG: PUT /funds/f850fc16-3b24-4ffc-b758-8be89544f32f Query parameters: {} Body: {"name":"Smith Family Fund","totalFunds":100000} 200 

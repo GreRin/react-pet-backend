@@ -2,7 +2,7 @@ import { getConnection, createConnection, Connection } from 'typeorm';
 import { config } from '../common/ormconfig';
 
 export const connectToDB = async (): Promise<void> => {
-  let connection: Connection;
+  let connection: Connection | null = null;
 
   try {
     connection = getConnection();
