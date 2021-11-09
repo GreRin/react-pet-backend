@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { router as userRouter } from './resources/users/user.router';
 import { router as  fundsRouter } from './resources/funds/fund.router';
+import { router as  donationsRouter } from './resources/donation/donation.router';
 import { logger } from './middlewares/index';
 import "reflect-metadata";
 
@@ -13,6 +14,8 @@ app.use(express.json());
 app.use(requestLogger);
 
 app.use('/', (req: Request, res: Response, next: NextFunction) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   if (req.originalUrl === '/') {
     res.send('Service is running!');
     return;
@@ -22,7 +25,7 @@ app.use('/', (req: Request, res: Response, next: NextFunction) => {
 
 app.use('/user', userRouter);
 app.use('/funds', fundsRouter);
-// app.use('/donations', donationsRouter);
+app.use('/donations', donationsRouter);
 
 app.use(errorLogger);
 

@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-// import { Id } from '../types/index';
-// import { Task } from './Task';
+import {Fund} from "./Fund";
+import { Id } from '../types/index';
 
 @Entity({name: 'user'})
 export class User {
@@ -16,8 +16,8 @@ export class User {
     @Column()
     password: string;
 
-    // @OneToMany<Task>(() => Task, (task: Task): Id => task.userId as Id, { cascade: true })
-    // tasks: Task[];
+    @OneToMany<Fund>(() => Fund, (fund: Fund): Id => fund.userId as Id, { cascade: true })
+    funds: Fund[];
 
     static toResponse(user?: Partial<User>): Partial<User> | undefined {
         if (!user) return undefined;

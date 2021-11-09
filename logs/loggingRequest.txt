@@ -1,2 +1,6 @@
-LOG: PUT /funds/f850fc16-3b24-4ffc-b758-8be89544f32f Query parameters: {} Body: {"name":"Smith Family Fund","totalFunds":100000} 200 
-LOG: PUT /funds/f850fc16-3b24-4ffc-b758-8be89544f32f Query parameters: {} Body: {"name":"Smith Family Fund","totalFunds":100000} 200 
+LOG: POST /donations Query parameters: {} Body: {"toFund":"Smith Family Fund","amount":1000,"fromOrganization":"Conversation Corps North Bay"} 201 
+LOG: POST /donations Query parameters: {} Body: {"toFund":"The Jane Smith Fund","amount":500,"fromOrganization":"Hispanic Foundation"} 201 
+LOG: POST /donations Query parameters: {} Body: {"toFund":"The John + Jane Smith Family Fund","amount":1000,"fromOrganization":"Houston Fond Bank"} 201 
+LOG: POST /donations Query parameters: {} Body: {"toFund":"The Jennifer Smith Fund","amount":1000,"fromOrganization":"Conversation Corps North Bay Conversation Corps North Bay"} 201 
+LOG: POST /donations Query parameters: {} Body: {"toFund":"The Sam Smith Memorial Family Fund","amount":1000,"fromOrganization":"Conversation Corps North Bay Conversation Corps North Bay"} 201 
+LOG: POST /donations Query parameters: {} Body: {"toFund":"Smith Family Fund","amount":1000,"fromOrganization":"Conversation Corps North Bay"} 201 

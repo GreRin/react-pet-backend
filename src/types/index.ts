@@ -31,3 +31,12 @@ export interface IFund extends IEntity {
 };
 
 export type IFundDto = Omit<IFund, 'id'>;
+
+export interface IDonation extends IEntity {
+  toFund: string;
+  amount: number;
+  date: Date;
+  fromOrganization: Date;
+};
+
+export type IDonationDto = Omit<IDonation, 'id'>;
