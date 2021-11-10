@@ -36,7 +36,7 @@ export interface IDonation extends IEntity {
   toFund: string;
   amount: number;
   date: Date;
-  fromOrganization: Date;
+  fromOrganization: string;
 };
 
 export type IDonationDto = Omit<IDonation, 'id'>;

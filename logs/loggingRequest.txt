@@ -1,4 +1,0 @@
-LOG: GET / Query parameters: {} Body: {} 200 
-LOG: GET /favicon.ico Query parameters: {} Body: {} 404 
-LOG: GET /donations Query parameters: {} Body: {} 304 
-LOG: GET /funds Query parameters: {} Body: {} 304 

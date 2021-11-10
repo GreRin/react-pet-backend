@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-const { finished } = require('stream');
+import { finished } from 'stream';
 import { NextFunction, Response } from 'express';
 import { IRequest } from '../types';
 

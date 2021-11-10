@@ -1,7 +1,6 @@
 import {getRepository} from "typeorm";
 import {Fund} from '../../entity/Fund';
-import {IFundDto, Id, IUserDto} from '../../types/index';
-import {User} from "../../entity/User";
+import {IFundDto, Id} from '../../types/index';
 
 const getAll = async (): Promise<Fund[]> => {
   const usersRepository = getRepository(Fund);

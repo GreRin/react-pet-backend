@@ -1,5 +1,5 @@
 import {Fund} from '../../entity/Fund';
-import {IFund, IFundDto} from '../../types/index';
+import {IFundDto} from '../../types/index';
 import fundRepo from './fund.memory.repository';
 
 const getAll = (): Promise<Fund[]> => fundRepo.getAll();

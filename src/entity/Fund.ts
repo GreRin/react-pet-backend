@@ -19,12 +19,6 @@ export class Fund {
   @TypeColumn('date')
   updatedAt: Date;
 
-  // @OneToMany<Donations>(() => Donations, (donation: Donations): Id => donation.donationdId, {
-  //   cascade: true,
-  //   eager: true,
-  // })
-  // columns: Donations[];
-
   @ManyToOne(() => User, { onDelete: 'SET NULL' })
   @TypeColumn('uuid', { name: 'userIdId', nullable: true })
   userId: Id | null;
