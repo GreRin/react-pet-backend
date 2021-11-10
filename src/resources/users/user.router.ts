@@ -42,7 +42,6 @@ router.route('/:id').put(asyncHandler(async (req: Request, res: Response) => {
 
 router.route('/:id').delete(asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
-  console.log(id)
   if(id) {
     await usersService.deleteById(id);
     res.status(StatusCodes.NO_CONTENT).json({message: 'User successfully delete'})

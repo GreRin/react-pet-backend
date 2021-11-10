@@ -1,14 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-// @ts-ignore
-import { finished } from 'stream';
+const { finished } = require('stream');
 import { NextFunction, Response } from 'express';
 import { IRequest } from '../types';
 
 export const requestLoggingFile = fs.createWriteStream(path.resolve(__dirname, '../../logs/loggingRequest.txt'));
 
 export const requestLogger = (req: IRequest, res: Response, next: NextFunction): void => {
-  // @ts-ignore
   const { method, url, query, body } = req;
   finished(res, ():void => {
     const { statusCode }  = res;

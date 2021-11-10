@@ -26,7 +26,6 @@ router.route('/').get(asyncHandler(async (_req: Request, res: Response) => {
 // }));
 
 router.route('/').post(asyncHandler(async (req: Request, res: Response) => {
-  console.log(req.body);
   const donationData: IDonationDto = {
     toFund: req.body.toFund,
     amount: req.body.amount,

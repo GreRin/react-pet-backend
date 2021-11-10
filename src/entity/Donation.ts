@@ -1,4 +1,5 @@
 import {Entity, Column as TypeColumn, PrimaryGeneratedColumn} from 'typeorm';
+
 @Entity({name: 'donations'})
 export class Donation {
   @PrimaryGeneratedColumn('uuid')

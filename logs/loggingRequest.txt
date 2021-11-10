@@ -1,6 +1,4 @@
-LOG: POST /donations Query parameters: {} Body: {"toFund":"Smith Family Fund","amount":1000,"fromOrganization":"Conversation Corps North Bay"} 201 
-LOG: POST /donations Query parameters: {} Body: {"toFund":"The Jane Smith Fund","amount":500,"fromOrganization":"Hispanic Foundation"} 201 
-LOG: POST /donations Query parameters: {} Body: {"toFund":"The John + Jane Smith Family Fund","amount":1000,"fromOrganization":"Houston Fond Bank"} 201 
-LOG: POST /donations Query parameters: {} Body: {"toFund":"The Jennifer Smith Fund","amount":1000,"fromOrganization":"Conversation Corps North Bay Conversation Corps North Bay"} 201 
-LOG: POST /donations Query parameters: {} Body: {"toFund":"The Sam Smith Memorial Family Fund","amount":1000,"fromOrganization":"Conversation Corps North Bay Conversation Corps North Bay"} 201 
-LOG: POST /donations Query parameters: {} Body: {"toFund":"Smith Family Fund","amount":1000,"fromOrganization":"Conversation Corps North Bay"} 201 
+LOG: GET / Query parameters: {} Body: {} 200 
+LOG: GET /favicon.ico Query parameters: {} Body: {} 404 
+LOG: GET /donations Query parameters: {} Body: {} 304 
+LOG: GET /funds Query parameters: {} Body: {} 304 
