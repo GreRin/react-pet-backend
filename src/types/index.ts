@@ -1,7 +1,7 @@
-import { Request } from "express";
+import { Request } from 'express';
 
 export interface IRequest extends Request {
-  originalUrl: string
+  originalUrl: string;
 }
 
 export interface ICustomError extends Error {
@@ -19,7 +19,7 @@ export interface IUser extends IEntity {
   name: string;
   login: string;
   password: string;
-};
+}
 
 export type IUserDto = Omit<IUser, 'id'>;
 
@@ -28,7 +28,7 @@ export interface IFund extends IEntity {
   totalFunds: number;
   createdAt?: Date;
   updatedAt: Date;
-};
+}
 
 export type IFundDto = Omit<IFund, 'id'>;
 
@@ -37,6 +37,6 @@ export interface IDonation extends IEntity {
   amount: number;
   date: Date;
   fromOrganization: string;
-};
+}
 
 export type IDonationDto = Omit<IDonation, 'id'>;

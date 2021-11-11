@@ -21,4 +21,4 @@ export const connectToDB = async (): Promise<void> => {
   } catch (error) {
     console.error(error);
   }
-}
+};

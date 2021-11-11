@@ -1,10 +1,10 @@
-import {getRepository} from "typeorm";
-import {Donation} from '../../entity/Donation';
-import {IDonationDto} from "../../types";
+import { getRepository } from 'typeorm';
+import { Donation } from '../../entity/Donation';
+import { IDonationDto } from '../../types';
 
 const getAll = async (): Promise<Donation[]> => {
   const usersRepository = getRepository(Donation);
-  return usersRepository.find({where: {}});
+  return usersRepository.find({ where: {} });
 };
 
 const create = async (donation: IDonationDto): Promise<Partial<Donation>> => {
@@ -14,4 +14,4 @@ const create = async (donation: IDonationDto): Promise<Partial<Donation>> => {
   return savedDonation;
 };
 
-export default {getAll, create};
+export default { getAll, create };

@@ -4,16 +4,25 @@
          "es5",
          "es6"
       ],
-      "target": "es2020",
+      "target": "es5",
       "module": "commonjs",
-      "moduleResolution": "node",
+      "sourceMap": true,
       "outDir": "./build",
+      "rootDir": "./src",
+      /* Strict Type-Checking Options */
+      "strictNullChecks": true,
+      "noImplicitAny": true,
+      /* Module Resolution Options */
+      "moduleResolution": "node",
+      "baseUrl": "./src",
+      "esModuleInterop": true,
+      /* Advanced Options */
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "sourceMap": true,
       "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true,
       "noUnusedLocals": true,
-      "noUnusedParameters": true
+      "noUnusedParameters": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
    }
 }
