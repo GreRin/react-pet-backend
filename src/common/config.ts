@@ -1,29 +1,29 @@
-import dotenv from 'dotenv';
-import path from 'path';
+import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config({
-  path: path.join(__dirname, '../../.env'),
+  path: path.join(__dirname, "../../.env"),
 });
 
 type iDbType =
-  | 'mysql'
-  | 'mariadb'
-  | 'postgres'
-  | 'cockroachdb'
-  | 'sqlite'
-  | 'mssql'
-  | 'sap'
-  | 'oracle'
-  | 'cordova'
-  | 'nativescript'
-  | 'react-native'
-  | 'sqljs'
-  | 'mongodb'
-  | 'aurora-data-api'
-  | 'aurora-data-api-pg'
-  | 'expo'
-  | 'better-sqlite3'
-  | 'capacitor';
+  | "mysql"
+  | "mariadb"
+  | "postgres"
+  | "cockroachdb"
+  | "sqlite"
+  | "mssql"
+  | "sap"
+  | "oracle"
+  | "cordova"
+  | "nativescript"
+  | "react-native"
+  | "sqljs"
+  | "mongodb"
+  | "aurora-data-api"
+  | "aurora-data-api-pg"
+  | "expo"
+  | "better-sqlite3"
+  | "capacitor";
 
 export interface ProcessEnv {
   PORT: number;
@@ -56,4 +56,4 @@ export const {
   DB_NAME,
 } = process.env;
 
-export const AUTH_MODE = process.env.AUTH_MODE === 'true';
+export const AUTH_MODE = process.env.AUTH_MODE === "true";

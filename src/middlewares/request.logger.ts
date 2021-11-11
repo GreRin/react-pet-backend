@@ -1,11 +1,11 @@
-import fs from 'fs';
-import path from 'path';
-import { finished } from 'stream';
-import { NextFunction, Response } from 'express';
-import { IRequest } from '../types';
+import fs from "fs";
+import path from "path";
+import { finished } from "stream";
+import { NextFunction, Response } from "express";
+import { IRequest } from "../types";
 
 export const requestLoggingFile = fs.createWriteStream(
-  path.resolve(__dirname, '../../logs/loggingRequest.txt')
+  path.resolve(__dirname, "../../logs/loggingRequest.txt")
 );
 
 export const requestLogger = (

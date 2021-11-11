@@ -1,5 +1,5 @@
-import { getConnection, createConnection, Connection } from 'typeorm';
-import { config } from '../common/ormconfig';
+import { getConnection, createConnection, Connection } from "typeorm";
+import { config } from "../common/ormconfig";
 
 export const connectToDB = async (): Promise<void> => {
   let connection: Connection | null = null;
@@ -7,7 +7,7 @@ export const connectToDB = async (): Promise<void> => {
   try {
     connection = getConnection();
   } catch (error) {
-    console.log('Connection does not exist: ', error.message);
+    console.log("Connection does not exist: ", error.message);
   }
 
   try {
@@ -17,7 +17,7 @@ export const connectToDB = async (): Promise<void> => {
       connection = await createConnection(config);
     }
     await connection.runMigrations();
-    console.log('DB has connected');
+    console.log("DB has connected");
   } catch (error) {
     console.error(error);
   }

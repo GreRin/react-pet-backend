@@ -1,16 +1,16 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Fund } from './Fund';
-import { Id } from '../types/index';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Fund } from "./Fund";
+import { Id } from "../types/index";
 
-@Entity({ name: 'user' })
+@Entity({ name: "user" })
 export class User {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column('varchar', { length: 225 })
+  @Column("varchar", { length: 225 })
   name: string;
 
-  @Column('varchar', { length: 225 })
+  @Column("varchar", { length: 225 })
   login: string;
 
   @Column()
