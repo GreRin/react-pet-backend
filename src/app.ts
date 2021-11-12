@@ -31,9 +31,9 @@ app.use("/", (req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-app.use("/user", userRouter);
-app.use("/funds", fundsRouter);
-app.use("/donations", donationsRouter);
+app.use("api/users", userRouter);
+app.use("api/funds", fundsRouter);
+app.use("api/donations", donationsRouter);
 
 app.use(errorLogger);
 
