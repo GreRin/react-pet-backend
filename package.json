@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Awesome project developed with TypeORM.",
   "scripts": {
-    "start": "cross-env nodemon --watch './src/**/*.ts' --exec ts-node ./src/index.ts",
+    "start": "cross-env PORT=4000 nodemon --watch './src/**/*.ts' --exec ts-node ./src/index.ts",
     "lint": "eslint --ext .js,.ts --fix ./src",
     "prettier": "prettier --config .prettierrc.json --write src/**/*.ts",
     "prepare": "husky install",
