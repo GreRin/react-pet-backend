@@ -1,12 +1,7 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class MigrationFile1636982989614 implements MigrationInterface {
-  public async up(queryRunner: QueryRunner): Promise<void> {
+  public up = async (queryRunner: QueryRunner): Promise<void> => {
     await queryRunner.createTable(
       new Table({
         name: "user",
@@ -88,20 +83,13 @@ export class MigrationFile1636982989614 implements MigrationInterface {
       }),
       true
     );
-  }
+  };
 
-  public async down(queryRunner: QueryRunner): Promise<void> {
-    const fund = await queryRunner.getTable("fund");
-    // @ts-ignore
-    const foreignKey = fund.foreignKeys.find(
-      fk => fk.columnNames.indexOf("userId") !== -1
-    );
-    await queryRunner.dropForeignKey("userId", foreignKey as TableForeignKey);
-
+  public down = async (queryRunner: QueryRunner): Promise<void> => {
     await queryRunner.dropColumn("fund", "userId");
     await queryRunner.dropTable("fund");
 
     await queryRunner.dropTable("donations");
     await queryRunner.dropTable("user");
-  }
+  };
 }
