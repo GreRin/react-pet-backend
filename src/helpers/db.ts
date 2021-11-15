@@ -1,11 +1,11 @@
 import { getConnection, createConnection, Connection } from "typeorm";
 import { config } from "../common/ormconfig";
 
-export const connectToDB = async (name: string): Promise<void> => {
+export const connectToDB = async (): Promise<void> => {
   let connection: Connection | null = null;
 
   try {
-    connection = getConnection(name);
+    connection = getConnection();
   } catch (error) {
     console.log("Connection does not exist: ", error.message);
   }
@@ -21,9 +21,4 @@ export const connectToDB = async (name: string): Promise<void> => {
   } catch (error) {
     console.error(error);
   }
-};
-
-export const tryDBConnect = async (cb: () => void): Promise<void> => {
-  await connectToDB("des");
-  cb();
 };
