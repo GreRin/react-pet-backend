@@ -7,8 +7,8 @@ const getAll = async (): Promise<User[]> => {
   return usersRepository.find({ where: {} });
 };
 
-export const getByLogin = async (login: string): Promise<User | undefined> =>
-  await getRepository(User).findOne({ login });
+export const getByLogin = (login: string): Promise<User | undefined> =>
+  getRepository(User).findOne({ login });
 
 const getById = async (id: Id): Promise<Partial<User> | undefined> => {
   const usersRepository = await getRepository(User);
