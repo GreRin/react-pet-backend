@@ -32,9 +32,7 @@ const auth = asyncHandler(
         );
       }
     } catch (error) {
-      return next(
-        createError(error.message, StatusCodes.UNAUTHORIZED, `UNAUTHORIZED`)
-      );
+      return next(createError(StatusCodes.UNAUTHORIZED, `UNAUTHORIZED`));
     }
 
     return next();
