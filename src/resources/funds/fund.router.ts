@@ -1,13 +1,13 @@
-import { Router, Request, Response } from 'express';
-import asyncHandler from 'express-async-handler';
-import { StatusCodes } from 'http-status-codes';
-import { Fund } from '../../entity/Fund';
-import { IFund, IFundDto } from '../../types';
-import fundService from './fund.service';
+import { Router, Request, Response } from "express";
+import asyncHandler from "express-async-handler";
+import { StatusCodes } from "http-status-codes";
+import { Fund } from "../../entity/Fund";
+import { IFund, IFundDto } from "../../types";
+import fundService from "./fund.service";
 
 export const router = Router();
 
-router.route('/').get(
+router.route("/").get(
   asyncHandler(async (_req: Request, res: Response) => {
     try {
       const fund: IFund[] = await fundService.getAll();
@@ -18,21 +18,20 @@ router.route('/').get(
   })
 );
 
-router.route('/:id').get(
+router.route("/:id").get(
   asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
     if (id) {
       const user: Partial<IFund> | undefined = await fundService.getById(id);
       if (!user)
-        res.status(StatusCodes.NOT_FOUND).json({ message: 'User not found!' });
+        res.status(StatusCodes.NOT_FOUND).json({ message: "User not found!" });
       res.status(StatusCodes.OK).json(Fund.toResponse(user));
     }
   })
 );
 
-router.route('/').post(
+router.route("/").post(
   asyncHandler(async (req: Request, res: Response) => {
-    console.log(req.body);
     const fundData: IFundDto = {
       name: req.body.name,
       totalFunds: req.body.totalFunds,
@@ -41,12 +40,12 @@ router.route('/').post(
     };
     const fund: Partial<IFundDto> = await fundService.create(fundData);
     if (!fund)
-      res.status(StatusCodes.NOT_FOUND).json({ message: 'Fund not created!' });
+      res.status(StatusCodes.NOT_FOUND).json({ message: "Fund not created!" });
     res.status(StatusCodes.CREATED).json(Fund.toResponse(fund));
   })
 );
 
-router.route('/:id').put(
+router.route("/:id").put(
   asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
     if (id) {
@@ -62,20 +61,20 @@ router.route('/:id').put(
       if (!fund)
         res
           .status(StatusCodes.NOT_FOUND)
-          .json({ message: 'Fund not updated!' });
+          .json({ message: "Fund not updated!" });
       res.status(StatusCodes.OK).json(Fund.toResponse(fund));
     }
   })
 );
 
-router.route('/:id').delete(
+router.route("/:id").delete(
   asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
     if (id) {
       await fundService.deleteById(id);
       res
         .status(StatusCodes.NO_CONTENT)
-        .json({ message: 'User successfully delete' });
+        .json({ message: "User successfully delete" });
     }
   })
 );

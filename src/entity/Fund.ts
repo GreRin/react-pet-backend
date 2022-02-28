@@ -25,7 +25,7 @@ export class Fund {
   updatedAt: Date;
 
   @ManyToOne(() => User, { onDelete: "SET NULL" })
-  @TypeColumn("uuid", { name: "userIdId", nullable: true })
+  @TypeColumn("uuid", { name: "userId", nullable: true })
   userId: Id | null;
 
   static toResponse(fund?: Partial<Fund>): Partial<Fund> | undefined {

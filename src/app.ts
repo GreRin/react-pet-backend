@@ -5,7 +5,7 @@ import "reflect-metadata";
 
 const app = express();
 
-const { userRouter, fundsRouter, donationsRouter } = routes;
+const { userRouter, fundsRouter, donationsRouter, loginRouter } = routes;
 
 const {
   requestLogger,
@@ -31,6 +31,7 @@ app.use("/", (req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
+app.use("/api/auth", loginRouter);
 app.use("/api/users", userRouter);
 app.use("/api/funds", fundsRouter);
 app.use("/api/donations", donationsRouter);

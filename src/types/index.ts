@@ -16,7 +16,7 @@ export interface IEntity {
 }
 
 export interface IUser extends IEntity {
-  name: string;
+  name?: string;
   login: string;
   password: string;
 }
