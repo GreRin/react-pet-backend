@@ -5,13 +5,14 @@ import "reflect-metadata";
 
 const app = express();
 
-const { userRouter, fundsRouter, donationsRouter, loginRouter } = routes;
+const { userRouter, fundsRouter, donationsRouter, authRouter } = routes;
 
 const {
   requestLogger,
   errorLogger,
   unhandledRejectionLogger,
   unhandledExceptionLogger,
+  auth,
 } = logger;
 
 app.use(express.json());
@@ -31,7 +32,8 @@ app.use("/", (req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-app.use("/api/auth", loginRouter);
+app.use("/api/auth", authRouter);
+app.use(auth);
 app.use("/api/users", userRouter);
 app.use("/api/funds", fundsRouter);
 app.use("/api/donations", donationsRouter);

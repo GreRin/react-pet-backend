@@ -40,3 +40,8 @@ export interface IDonation extends IEntity {
 }
 
 export type IDonationDto = Omit<IDonation, "id">;
+
+export interface TokenInterface {
+  userId: string;
+  login: string;
+}

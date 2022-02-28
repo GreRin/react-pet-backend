@@ -33,6 +33,6 @@ router.route("/").get(
       return next(createError(StatusCodes.FORBIDDEN, `Wrong password.`));
     }
     res.status(StatusCodes.OK).json({ token, user: User.toResponse(user) });
-    return undefined;
+    return token;
   })
 );
