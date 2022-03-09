@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { NextFunction, Request, Response, Router } from "express";
 import { StatusCodes } from "http-status-codes";
-import authService from "./auth.service";
+import authService from "./login.service";
 import { User } from "../../entity/User";
 import { JWT_SECRET_KEY } from "../../common/config";
 import { CustomError } from "../../middlewares/errorHandler";
@@ -11,11 +11,11 @@ const jwt = require("jsonwebtoken");
 
 export const router = Router();
 
-router.route("/").get(
+router.route("/").post(
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    const { login, password } = req.body;
+    const { email, password } = req.body;
     const user: Partial<User> | undefined = await authService.findByCredentials(
-      login,
+      email,
       password
     );
     if (!user) {
@@ -33,7 +33,13 @@ router.route("/").get(
     if (token === "FORBIDDEN") {
       return next(createError(StatusCodes.FORBIDDEN, `Wrong password.`));
     }
-    res.status(StatusCodes.OK).json({ token, user: User.toResponse(user) });
-    return token;
+    res.setHeader("Authorization", token);
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    res
+      .status(StatusCodes.OK)
+      .json({ message: "User has authorization", token });
   })
 );

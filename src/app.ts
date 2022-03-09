@@ -1,11 +1,12 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import { routes } from "./resources/index";
 import { logger } from "./middlewares/index";
 import "reflect-metadata";
+const cors = require("cors");
 
 const app = express();
 
-const { userRouter, fundsRouter, donationsRouter, authRouter } = routes;
+const { userRouter, fundsRouter, donationsRouter, loginRouter } = routes;
 
 const {
   requestLogger,
@@ -19,23 +20,13 @@ app.use(express.json());
 
 app.use(requestLogger);
 
-app.use("/", (req: Request, res: Response, next: NextFunction) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  if (req.originalUrl === "/") {
-    res.send("Service is running!");
-    return;
-  }
-  next();
-});
+app.use(cors({ origin: "http://localhost:4444" }));
 
-app.use("/api/auth", authRouter);
-app.use("/api/users", auth, userRouter);
-app.use("/api/funds", auth, fundsRouter);
-app.use("/api/donations", auth, donationsRouter);
+app.use("/api/login", loginRouter);
+app.use(auth);
+app.use("/api/users", userRouter);
+app.use("/api/funds", fundsRouter);
+app.use("/api/donations", donationsRouter);
 
 app.use(errorLogger);
 

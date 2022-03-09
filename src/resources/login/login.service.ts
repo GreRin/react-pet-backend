@@ -1,5 +1,5 @@
 import { User } from "../../entity/User";
-import authRepo from "./auth.memory";
+import authRepo from "./login.memory";
 const bcrypt = require("bcrypt");
 
 export const findByCredentials = async (
