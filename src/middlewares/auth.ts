@@ -14,7 +14,7 @@ const auth = asyncHandler(
     }
 
     try {
-      let sessionToken = await req.headers.Authorization;
+      let sessionToken = req.headers.authorization;
       if (sessionToken && sessionToken.indexOf("Bearer ") === 0) {
         sessionToken = sessionToken.slice(7);
       }
