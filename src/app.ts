@@ -20,7 +20,7 @@ app.use(express.json());
 
 app.use(requestLogger);
 
-app.use(cors({ origin: "http://localhost:4444" }));
+app.use(cors({ origin: "*" }));
 
 app.use("/api/login", loginRouter);
 app.use(auth);

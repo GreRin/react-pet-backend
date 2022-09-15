@@ -1,0 +1,6 @@
+LOG: OPTIONS /api/login Query parameters: {} Body: {} 204 
+LOG: POST /api/login Query parameters: {} Body: {"email":"test@gmail.com","password":"55779988"} 200 
+LOG: OPTIONS /api/funds Query parameters: {} Body: {} 204 
+LOG: OPTIONS /api/donations Query parameters: {} Body: {} 204 
+LOG: GET /api/funds Query parameters: {} Body: {} 200 
+LOG: GET /api/donations Query parameters: {} Body: {} 200 
