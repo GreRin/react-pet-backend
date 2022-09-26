@@ -1,5 +1,5 @@
 import { getConnection, createConnection, Connection } from "typeorm";
-import { config } from "../common/ormconfig";
+import { configPostgresQL } from "../common/ormconfig";
 
 export const connectToDB = async (): Promise<void> => {
   let connection: Connection | null = null;
@@ -14,10 +14,10 @@ export const connectToDB = async (): Promise<void> => {
     if (connection) {
       if (!connection.isConnected) await connection.connect();
     } else {
-      connection = await createConnection(config);
+      connection = await createConnection(configPostgresQL);
     }
     await connection.runMigrations();
-    console.log("DB has connected");
+    console.log("DB PostresQL has been connected");
   } catch (error) {
     console.error(error);
   }

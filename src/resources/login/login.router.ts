@@ -17,7 +17,9 @@ router.route("/").post(
     // Connect to the Redis
     const client = createClient();
     client.on("error", err => console.log("Redis Client Error", err));
-    await client.connect();
+    await client.on("connect", () => {
+      console.log("Redis connected!");
+    });
 
     const { email, password } = req.body;
     const user: Partial<User> | undefined = await authService.findByCredentials(
