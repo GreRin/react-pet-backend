@@ -1,24 +1,14 @@
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
+import { config } from "../common/ormconfig";
 
-export const connectToMongoDB = async (): Promise<void> => {
-  // Connection URL
-  const url = "mongodb://127.0.0.1:27017";
-  const dbName = "task-manager";
-
-  // Create a new MongoClient
-  let client = new MongoClient(url, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  });
-  // Database Name
-
+export const connectToMongoose = async (): Promise<void> => {
   try {
-    // Connect the client to the server (optional starting in v4.7)
-    client = await client.connect();
-    // Establish and verify connection
-    await client.db(dbName);
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
+    await mongoose.connect(config.mongoURI, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
+  } catch (e) {
+    console.log("Server Error", e.message);
+    process.exit(1);
   }
 };

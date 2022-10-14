@@ -8,19 +8,11 @@ import { CustomError } from "../../middlewares/errorHandler";
 
 const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
-import { createClient } from "redis";
 
 export const router = Router();
 
 router.route("/").post(
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    // Connect to the Redis
-    const client = createClient();
-    client.on("error", err => console.log("Redis Client Error", err));
-    await client.on("connect", () => {
-      console.log("Redis connected!");
-    });
-
     const { email, password } = req.body;
     const user: Partial<User> | undefined = await authService.findByCredentials(
       email,
@@ -35,9 +27,7 @@ router.route("/").post(
       { expiresIn: "1h" },
       { algorithm: "RS256" }
     );
-    await client.set("key", token);
-    const value = await client.get("key");
-    console.log(value);
+
     if (token === "NOT_FOUND") {
       return next(new CustomError(StatusCodes.NOT_FOUND, `User not found`));
     }
