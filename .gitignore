@@ -5,3 +5,5 @@ tmp
 temp
 .env
 .husky
+.DC_Store
+node_modules
