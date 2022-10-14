@@ -1,12 +1,13 @@
-import { PORT } from './common/config';
-import { connectToDB } from './helpers/db';
+import { PORT } from "./common/config";
+import { connectToMongoose } from "./helpers/mongodb";
 
-import app from './app';
+import app from "./app";
 
-connectToDB()
-  .then(() => {
-      app.listen(PORT, () => console.log(`App is running on http://localhost:${PORT}`));
-  })
-  .catch((err: Error) => {
-      console.log(`Fail connect to DB: `, err.message);
-  });
+const connection = async () => {
+  await connectToMongoose();
+  app.listen(PORT, () =>
+    console.log(`App is running on http://localhost:${PORT}`)
+  );
+};
+
+connection();

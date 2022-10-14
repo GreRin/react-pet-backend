@@ -1,6 +1,9 @@
-.idea/
-.vscode/
-node_modules/
-build/
-tmp/
-temp/
+.idea
+node_modules
+build
+tmp
+temp
+.env
+.husky
+.DC_Store
+node_modules
