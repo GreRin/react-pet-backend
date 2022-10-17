@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-import { config } from "../common/ormconfig";
+import { config } from '../common/ormconfig';
+
+const mongoose = require('mongoose');
 
 export const connectToMongoose = async (): Promise<void> => {
   try {
@@ -8,7 +9,8 @@ export const connectToMongoose = async (): Promise<void> => {
       useNewUrlParser: true,
     });
   } catch (e) {
-    console.log("Server Error", e.message);
+    /* eslint-disable no-console */
+    console.log('Server Error', e.message);
     process.exit(1);
   }
 };

@@ -1,12 +1,13 @@
 import express from "express";
-import { routes } from "./resources/index";
-import { logger } from "./middlewares/index";
+import { routes } from "./resources";
+import { logger } from "./middlewares";
 import "reflect-metadata";
+
 const cors = require("cors");
 
 const app = express();
 
-const { userRouter, fundsRouter, donationsRouter, loginRouter } = routes;
+const { userRouter, fundsRouter, donationsRouter, loginRouter, signupRouter } = routes;
 
 const {
   requestLogger,
@@ -22,6 +23,7 @@ app.use(requestLogger);
 
 app.use(cors({ origin: "*" }));
 
+app.use("/api/signup", signupRouter);
 app.use("/api/login", loginRouter);
 app.use(auth);
 app.use("/api/users", userRouter);

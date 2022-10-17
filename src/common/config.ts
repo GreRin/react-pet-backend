@@ -1,4 +1,4 @@
-import "dotenv/config";
+import 'dotenv/config';
 
 export interface ProcessEnv {
   PORT: number;
@@ -19,18 +19,7 @@ declare const process: {
   env: ProcessEnv;
 };
 
-export const {
-  PORT,
-  NODE_ENV,
-  JWT_SECRET_KEY,
-  LOG_FOLDER,
-  DB_TYPE,
-  DB_HOST,
-  DB_PORT,
-  DB_USER,
-  DB_PASSWORD,
-  DB_NAME,
-  MONGO_URI,
-} = process.env;
+export const { PORT, NODE_ENV, JWT_SECRET_KEY, LOG_FOLDER, DB_TYPE, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, MONGO_URI } =
+  process.env;
 
-export const AUTH_MODE = process.env.AUTH_MODE === "true";
+export const AUTH_MODE = process.env.AUTH_MODE === 'true';

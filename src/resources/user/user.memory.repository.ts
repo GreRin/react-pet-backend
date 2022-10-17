@@ -1,42 +1,38 @@
-import { getRepository } from "typeorm";
-import { User } from "../../entity/User";
-import { IUser, IUserDto, Id } from "../../types/index";
+import { IUser } from "../../types";
 
-const getAll = async (): Promise<User[]> => {
-  const usersRepository = await getRepository(User);
-  return usersRepository.find({ where: {} });
-};
+const User = require('../../entity/User');
 
-export const getByLogin = (login: string): Promise<User | undefined> =>
-  getRepository(User).findOne({ login });
+const getAll = (): Promise<IUser[]> => User.find();
 
-const getById = async (id: Id): Promise<Partial<User> | undefined> => {
-  const usersRepository = await getRepository(User);
-  const res = await usersRepository.findOne(id);
-  return res;
-};
-
-const create = async (user: IUser): Promise<Partial<User>> => {
-  const usersRepository = await getRepository(User);
-  const newUser = usersRepository.create(user);
-  const savedUser = usersRepository.save(newUser);
+// const getByLogin = (login: string): Promise<User | undefined> =>
+//   getRepository(User).findOne({ login });
+//
+// const getById = async (id: Id): Promise<Partial<User> | undefined> => {
+//   const usersRepository = await getRepository(User);
+//   const res = await usersRepository.findOne(id);
+//   return res;
+// };
+//
+const create = async (user: IUser): Promise<Partial<IUser>> => {
+  const newUser = User(user);
+  const savedUser = await User.save(newUser);
   return savedUser;
 };
+//
+// const updateById = async (
+//   id: string,
+//   user: IUserDto
+// ): Promise<User | undefined> => {
+//   const usersRepository = await getRepository(User);
+//   const res: Partial<User> | undefined = await getById(id);
+//   return res && usersRepository.save({ ...res, ...user });
+// };
+//
+// const deleteById = async (id: string): Promise<"DELETED" | "NOT_FOUND"> => {
+//   const usersRepository = await getRepository(User);
+//   const delitionRes = await usersRepository.delete(id);
+//   if (delitionRes.affected) return "DELETED";
+//   return "NOT_FOUND";
+// };
 
-const updateById = async (
-  id: string,
-  user: IUserDto
-): Promise<User | undefined> => {
-  const usersRepository = await getRepository(User);
-  const res: Partial<User> | undefined = await getById(id);
-  return res && usersRepository.save({ ...res, ...user });
-};
-
-const deleteById = async (id: string): Promise<"DELETED" | "NOT_FOUND"> => {
-  const usersRepository = await getRepository(User);
-  const delitionRes = await usersRepository.delete(id);
-  if (delitionRes.affected) return "DELETED";
-  return "NOT_FOUND";
-};
-
-export default { getAll, getByLogin, getById, create, updateById, deleteById };
+export default { getAll, create };

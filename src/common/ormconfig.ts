@@ -1,12 +1,4 @@
-import {
-  DB_HOST,
-  DB_PORT,
-  DB_USER,
-  DB_PASSWORD,
-  DB_NAME,
-  MONGO_URI,
-  DB_TYPE,
-} from "./config";
+import { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, MONGO_URI, DB_TYPE } from './config';
 
 export const config = {
   mongoURI: MONGO_URI,

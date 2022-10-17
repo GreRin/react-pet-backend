@@ -1,4 +1,4 @@
-import { Request } from "express";
+import { Request } from 'express';
 
 export interface IRequest extends Request {
   originalUrl: string;
@@ -21,7 +21,7 @@ export interface IUser extends IEntity {
   password: string;
 }
 
-export type IUserDto = Omit<IUser, "id">;
+export type IUserDto = Omit<IUser, 'id'>;
 
 export interface IFund extends IEntity {
   name: string;
@@ -30,7 +30,7 @@ export interface IFund extends IEntity {
   updatedAt: Date;
 }
 
-export type IFundDto = Omit<IFund, "id">;
+export type IFundDto = Omit<IFund, 'id'>;
 
 export interface IDonation extends IEntity {
   toFund: string;
@@ -39,7 +39,7 @@ export interface IDonation extends IEntity {
   fromOrganization: string;
 }
 
-export type IDonationDto = Omit<IDonation, "id">;
+export type IDonationDto = Omit<IDonation, 'id'>;
 
 export interface TokenInterface {
   userId: string;
