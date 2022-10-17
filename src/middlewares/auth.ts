@@ -31,4 +31,4 @@ const auth = asyncHandler(async (req: Request, _res: Response, next: NextFunctio
   return next();
 });
 
-export default { auth };
+export { auth };

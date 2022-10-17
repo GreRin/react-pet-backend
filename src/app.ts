@@ -13,8 +13,7 @@ const {
   requestLogger,
   errorLogger,
   unhandledRejectionLogger,
-  unhandledExceptionLogger,
-  auth,
+  unhandledExceptionLogger
 } = logger;
 
 app.use(express.json());
@@ -25,7 +24,7 @@ app.use(cors({ origin: "*" }));
 
 app.use("/api/signup", signupRouter);
 app.use("/api/login", loginRouter);
-app.use(auth);
+// app.use(auth);
 app.use("/api/users", userRouter);
 app.use("/api/funds", fundsRouter);
 app.use("/api/donations", donationsRouter);

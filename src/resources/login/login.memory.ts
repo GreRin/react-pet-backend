@@ -4,10 +4,10 @@ const bcrypt = require("bcrypt");
 const User = require('../../entity/User');
 
 const findByCredentials = async (
-  login: string,
+  email: string,
   password: string
 ): Promise<Partial<IUser> | undefined> => {
-  const user = await User.findOne({ login });
+  const user = await User.findOne({ email });
   if (!user) return undefined;
   const isPasswordMatch = await bcrypt.compare(password, user.password);
   if (!isPasswordMatch) return undefined;

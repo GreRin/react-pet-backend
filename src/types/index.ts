@@ -17,7 +17,7 @@ export interface IEntity {
 
 export interface IUser extends IEntity {
   name?: string;
-  login: string;
+  email: string;
   password: string;
 }
 
@@ -43,5 +43,5 @@ export type IDonationDto = Omit<IDonation, 'id'>;
 
 export interface TokenInterface {
   userId: string;
-  login: string;
+  email: string;
 }

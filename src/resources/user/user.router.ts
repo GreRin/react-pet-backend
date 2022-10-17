@@ -1,73 +1,113 @@
-import { Router, Request, Response } from "express";
+import {Router, Request, Response, NextFunction} from "express";
 import asyncHandler from "express-async-handler";
 import { StatusCodes } from "http-status-codes";
-// import { User } from "../../entity/User";
+import { check, validationResult } from "express-validator";
 import { IUser } from "../../types";
 import usersService from "./user.service";
+
+const createError = require("http-errors");
 
 export const router = Router();
 
 router.route("/").get(
-  asyncHandler(async (_req: Request, res: Response) => {
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+  asyncHandler(async (_req: Request, res: Response): Promise<any> => {
     try {
       const users: IUser[] = await usersService.getAll();
-      res.json(users);
+      return res.json(users);
     } catch (error) {
-      res.status(StatusCodes.NOT_FOUND).json({
+      return res.status(StatusCodes.NOT_FOUND).json({
         message: error.message
       })
     }
   })
 );
-//
-// router.route("/:id").get(
-//   asyncHandler(async (req: Request, res: Response) => {
-//     const { id } = req.params;
-//     if (id) {
-//       const user: Partial<IUser> | undefined = await usersService.getById(id);
-//       if (!user)
-//         res.status(StatusCodes.NOT_FOUND).json({ message: "User not found!" });
-//       res.status(StatusCodes.OK).json(User.toResponse(user));
-//     }
-//   })
-// );
-//
-router.route("/").post(
-  asyncHandler(async (req: Request, res: Response) => {
+
+router.route("/:id").get(
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  asyncHandler(async (req: Request, res: Response): Promise<any> => {
     try {
-      const user: Partial<IUser> = await usersService.create(req.body);
-      if (!user) {
-        res.status(StatusCodes.NOT_FOUND).json({ message: "User not created!" });
-        res.status(StatusCodes.CREATED).json(user);
-      }
+      const { id } = req.params;
+      const user: Partial<IUser> | undefined = await usersService.getById(id);
+      return res.status(StatusCodes.OK).json(user);
     } catch (error) {
-      res.status(StatusCodes.NOT_FOUND).json({
-        message: error.message
+      return res.status(StatusCodes.NOT_FOUND).json({
+        message: 'User not found',
+        error: error.message
       })
     }
   })
 );
-//
-// router.route("/:id").put(
-//   asyncHandler(async (req: Request, res: Response) => {
-//     const { id } = req.params;
-//     if (id) {
-//       const user: Partial<IUser> = await usersService.updateById(id, req.body);
-//       if (!user)
-//         res.status(StatusCodes.NOT_FOUND).json({ message: "User not update!" });
-//       res.status(StatusCodes.OK).json(User.toResponse(user));
-//     }
-//   })
-// );
-//
-// router.route("/:id").delete(
-//   asyncHandler(async (req: Request, res: Response) => {
-//     const { id } = req.params;
-//     if (id) {
-//       await usersService.deleteById(id);
-//       res
-//         .status(StatusCodes.NO_CONTENT)
-//         .json({ message: "User successfully delete" });
-//     }
-//   })
-// );
+
+router.route("/").post([
+  check('email', 'Enter correct e-mail').isEmail(),
+  check('password', 'Minimum e-mail length 6 symbols').isLength({ min: 6 })
+],
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return next(res.status(StatusCodes.BAD_REQUEST).json({
+        errors: errors.array(),
+        message: 'Incorrect registration data'
+      }))
+    }
+
+    const { email, password } = req.body;
+    const candidate = await usersService.getById(email);
+    if (candidate) {
+      return next(createError(StatusCodes.NOT_FOUND, `User already exist`));
+    }
+
+    const user = await usersService.create(email, password);
+
+    return res.status(StatusCodes.CREATED).json({
+      user,
+      message: 'User successfully created'
+    })
+  } catch (error) {
+    return next(res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: 'Something goes wrong! Try again later.',
+      error
+    }))
+  }
+})
+);
+
+router.route("/:id").put(
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  asyncHandler(async (req: Request, res: Response):Promise<any> => {
+    try {
+      const { id } = req.params;
+      if (!id) return res.status(StatusCodes.BAD_REQUEST);
+      const user: Partial<IUser> = await usersService.updateById(id, req.body);
+      return res.status(StatusCodes.OK).json(user);
+    } catch (error) {
+      return res.status(StatusCodes.NOT_MODIFIED).json({
+        message: 'User NOT updated',
+        error: error.message
+      })
+    }
+  })
+);
+
+router.route("/:id").delete(
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  asyncHandler(async (req: Request, res: Response): Promise<any> => {
+    try {
+      const { id } = req.params;
+      if (!id) return res.status(StatusCodes.BAD_REQUEST);
+      await usersService.deleteById(id);
+      return res
+        .status(StatusCodes.NO_CONTENT)
+        .json({ message: "User successfully delete" });
+    } catch (error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: 'User NOT deleted',
+        error
+      })
+    }
+  })
+);

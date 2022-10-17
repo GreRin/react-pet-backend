@@ -1,38 +1,46 @@
-import { IUser } from "../../types";
+import {v4 as uuidv4} from "uuid";
+import {Id, IUser} from "../../types";
 
-const User = require('../../entity/User');
+const bcrypt = require('bcrypt');
+const User = require("../../entity/User");
 
 const getAll = (): Promise<IUser[]> => User.find();
 
-// const getByLogin = (login: string): Promise<User | undefined> =>
-//   getRepository(User).findOne({ login });
+// const getByLogin = (email: string): Promise<User | undefined> =>
+//   getRepository(User).findOne({ email });
 //
-// const getById = async (id: Id): Promise<Partial<User> | undefined> => {
-//   const usersRepository = await getRepository(User);
-//   const res = await usersRepository.findOne(id);
-//   return res;
-// };
-//
-const create = async (user: IUser): Promise<Partial<IUser>> => {
-  const newUser = User(user);
-  const savedUser = await User.save(newUser);
+const getById = async (id: Id): Promise<Partial<IUser> | undefined> => {
+  const res = await User.findOne({id});
+  return res;
+};
+
+const create = async (email: string, password: string) => {
+  const hashedPassword = bcrypt.hashSync(password, 10);
+  const id = uuidv4();
+  const newUser = new User({
+    id,
+    email,
+    password: hashedPassword
+  });
+
+  const savedUser = await newUser.save();
   return savedUser;
 };
-//
-// const updateById = async (
-//   id: string,
-//   user: IUserDto
-// ): Promise<User | undefined> => {
-//   const usersRepository = await getRepository(User);
-//   const res: Partial<User> | undefined = await getById(id);
-//   return res && usersRepository.save({ ...res, ...user });
-// };
-//
-// const deleteById = async (id: string): Promise<"DELETED" | "NOT_FOUND"> => {
-//   const usersRepository = await getRepository(User);
-//   const delitionRes = await usersRepository.delete(id);
-//   if (delitionRes.affected) return "DELETED";
-//   return "NOT_FOUND";
-// };
 
-export default { getAll, create };
+const updateById = async (
+  id: string,
+  user: IUser
+): Promise<IUser | undefined> => {
+  const hashedPassword = bcrypt.hashSync(user.password, 10);
+  await User.updateOne({id}, {email: user.email, password: hashedPassword});
+  const res = await User.findOne({id});
+  return res;
+};
+
+const deleteById = async (id: string): Promise<"DELETED" | "NOT_FOUND"> => {
+  const delitionRes = await User.deleteOne({id});
+  if (delitionRes.affected) return "DELETED";
+  return "NOT_FOUND";
+};
+
+export default { getAll, create, getById, updateById, deleteById };

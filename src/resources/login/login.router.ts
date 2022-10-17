@@ -36,7 +36,7 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
       return next(createError(StatusCodes.NOT_FOUND, `User not found`));
     }
     const token = jwt.sign(
-      { userId: user.id, login: user.login },
+      { userId: user.id, email: user.email },
       JWT_SECRET_KEY,
       { expiresIn: "1h" },
       { algorithm: "RS256" }
