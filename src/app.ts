@@ -1,4 +1,5 @@
 import express from "express";
+import bodyParser from "body-parser";
 import { routes } from "./resources";
 import { logger } from "./middlewares";
 import "reflect-metadata";
@@ -17,6 +18,7 @@ const {
 } = logger;
 
 app.use(express.json());
+app.use(bodyParser.json())
 
 app.use(requestLogger);
 
