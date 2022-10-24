@@ -4,7 +4,6 @@ import { StatusCodes } from "http-status-codes";
 import {check, validationResult} from "express-validator";
 import authService from "./login.service";
 import { JWT_SECRET_KEY } from "../../common/config";
-import { CustomError } from "../../middlewares/errorHandler";
 import { IUser } from "../../types";
 
 const createError = require("http-errors");
@@ -23,7 +22,8 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
     if (!errors.isEmpty()) {
       return next(res.status(StatusCodes.BAD_REQUEST).json({
         errors: errors.array(),
-        message: 'Incorrect registration data'
+        message: 'Incorrect registration data',
+        status: StatusCodes.BAD_REQUEST
       }))
     }
 
@@ -33,7 +33,10 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
       password
     );
     if (!user) {
-      return next(createError(StatusCodes.NOT_FOUND, `User not found`));
+      return next(res.status(StatusCodes.NOT_FOUND).json({
+        message: 'User not found',
+        status: StatusCodes.NOT_FOUND
+      }))
     }
     const token = jwt.sign(
       { userId: user.id, email: user.email },
@@ -43,11 +46,20 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
     );
 
     if (token === "NOT_FOUND") {
-      return next(new CustomError(StatusCodes.NOT_FOUND, `User not found`));
+      return next(res.status(StatusCodes.NOT_FOUND).json({
+        message: 'User not found',
+        status: StatusCodes.NOT_FOUND
+      }))
     }
+
     if (token === "FORBIDDEN") {
-      return next(createError(StatusCodes.FORBIDDEN, `Wrong password.`));
+      createError(StatusCodes.FORBIDDEN, `Wrong password.`);
+      return next(res.status(StatusCodes.FORBIDDEN).json({
+        message: 'Wrong password.',
+        status: StatusCodes.FORBIDDEN
+      }))
     }
+
     res.setHeader("Authorization", token);
     res.setHeader(
       "Access-Control-Allow-Headers",
@@ -55,10 +67,11 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
     );
     return res
       .status(StatusCodes.OK)
-      .json({ message: "User has authorization", token });
+      .json({ message: "User has authorization", token, userId: user.id, status: StatusCodes.OK });
   } catch {
     return next(res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: 'Something goes wrong! Try again later.'
+      message: 'Something goes wrong! Try again later.',
+      status: StatusCodes.INTERNAL_SERVER_ERROR
     }))
   }
 })

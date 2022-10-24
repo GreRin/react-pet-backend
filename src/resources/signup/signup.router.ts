@@ -23,14 +23,19 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
     if (!errors.isEmpty()) {
       return next(res.status(StatusCodes.BAD_REQUEST).json({
         errors: errors.array(),
-        message: 'Incorrect registration data'
+        message: 'Incorrect registration data',
+        status: StatusCodes.BAD_REQUEST
       }))
     }
 
     const { email, password } = req.body;
     const candidate: Partial<IUser> | undefined = await User.findOne({ email });
     if (candidate) {
-      return next(createError(StatusCodes.NOT_FOUND, `User already exist`));
+      next(createError(StatusCodes.NOT_FOUND, `User already exist`));
+      return res.status(StatusCodes.NOT_FOUND).json({
+        message: 'User already exist',
+        status: StatusCodes.NOT_FOUND
+      })
     }
 
     const hashedPassword = bcrypt.hashSync(password, 10);
@@ -42,12 +47,15 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
     });
 
     await user.save();
-    return res.status(StatusCodes.CREATED).json({message: 'User successfully created'})
+    return res.status(StatusCodes.CREATED).json({
+      message: 'User successfully created',
+      status: StatusCodes.CREATED
+    })
   } catch (error) {
-    return next(res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Something goes wrong! Try again later.',
       error
-    }))
+    })
   }
 })
 );
