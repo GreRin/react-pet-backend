@@ -4,9 +4,11 @@ import { check, validationResult } from "express-validator";
 import { v4 as uuidv4 } from 'uuid';
 import { StatusCodes } from "http-status-codes";
 import { IUser } from "../../types";
+import {JWT_SECRET_KEY} from "../../common/config";
 
 const bcrypt = require('bcrypt');
 const createError = require("http-errors");
+const jwt = require("jsonwebtoken");
 const User = require('../../entity/User');
 
 export const router = Router();
@@ -47,10 +49,22 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
     });
 
     await user.save();
-    return res.status(StatusCodes.CREATED).json({
-      message: 'User successfully created',
-      status: StatusCodes.CREATED
-    })
+
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      JWT_SECRET_KEY,
+      { expiresIn: "1h" },
+      { algorithm: "RS256" }
+    );
+
+    res.setHeader("Authorization", token);
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    return res
+      .status(StatusCodes.CREATED)
+      .json({ message: "User successfully created", token, userId: user.id, status: StatusCodes.OK });
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Something goes wrong! Try again later.',
