@@ -19,6 +19,7 @@ export interface IUser extends IEntity {
   name?: string;
   email: string;
   password: string;
+  link: [];
 }
 
 export type IUserDto = Omit<IUser, 'id'>;

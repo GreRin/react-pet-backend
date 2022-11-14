@@ -1,4 +1,4 @@
-import { config } from '../common/ormconfig';
+import { config } from '../config/ormconfig';
 
 const mongoose = require('mongoose');
 

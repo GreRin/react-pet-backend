@@ -1,13 +1,13 @@
-import { IUser } from "../../types";
+import {IUser} from "../../../types";
 
 const bcrypt = require("bcrypt");
-const User = require("../../entity/User");
+const User = require('../../../entity/User');
 
-export const findByCredentials = async (
+const findByCredentials = async (
   login: string,
   password: string
 ): Promise<Partial<IUser> | undefined> => {
-  const user = await User.findOne({login});
+  const user = await User.findOne({ login });
   if (!user) return undefined;
   const isPasswordMatch = await bcrypt.compare(password, user.password);
   if (!isPasswordMatch) return undefined;

@@ -1,4 +1,4 @@
-import { PORT } from "./common/config";
+import { PORT } from "./config/config";
 import { connectToMongoose } from "./helpers/mongodb";
 
 import app from "./app";

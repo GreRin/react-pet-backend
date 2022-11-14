@@ -3,13 +3,13 @@ import { NextFunction, Request, Response, Router } from "express";
 import { check, validationResult } from "express-validator";
 import { v4 as uuidv4 } from 'uuid';
 import { StatusCodes } from "http-status-codes";
-import { IUser } from "../../types";
-import {JWT_SECRET_KEY} from "../../common/config";
+import { IUser } from "../../../types";
+import {REFRESH_TOKEN_SECRET} from "../../../config/config";
 
 const bcrypt = require('bcrypt');
 const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
-const User = require('../../entity/User');
+const User = require('../../../entity/User');
 
 export const router = Router();
 
@@ -52,7 +52,7 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
 
     const token = jwt.sign(
       { userId: user.id, email: user.email },
-      JWT_SECRET_KEY,
+      REFRESH_TOKEN_SECRET,
       { expiresIn: "1h" },
       { algorithm: "RS256" }
     );

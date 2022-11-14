@@ -3,8 +3,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import { StatusCodes } from "http-status-codes";
 import {check, validationResult} from "express-validator";
 import authService from "./login.service";
-import { JWT_SECRET_KEY } from "../../common/config";
-import { IUser } from "../../types";
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../../../config/config";
 
 const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
@@ -28,7 +27,7 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
     }
 
     const { email, password } = req.body;
-    const user: Partial<IUser> | undefined = await authService.findByCredentials(
+    const user: any = await authService.findByCredentials(
       email,
       password
     );
@@ -38,21 +37,29 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
         status: StatusCodes.NOT_FOUND
       }))
     }
-    const token = jwt.sign(
+
+    // create JWTs
+    const accessToken = jwt.sign(
       { userId: user.id, email: user.email },
-      JWT_SECRET_KEY,
-      { expiresIn: "1h" },
+      ACCESS_TOKEN_SECRET,
+      { expiresIn: '5m' },
+      { algorithm: "RS256" }
+    );
+    const refreshToken = jwt.sign(
+      { userId: user.id, email: user.email },
+      REFRESH_TOKEN_SECRET,
+      { expiresIn: '1h' },
       { algorithm: "RS256" }
     );
 
-    if (token === "NOT_FOUND") {
+    if (accessToken === "NOT_FOUND") {
       return next(res.status(StatusCodes.NOT_FOUND).json({
         message: 'User not found',
         status: StatusCodes.NOT_FOUND
       }))
     }
 
-    if (token === "FORBIDDEN") {
+    if (accessToken === "FORBIDDEN") {
       createError(StatusCodes.FORBIDDEN, `Wrong password.`);
       return next(res.status(StatusCodes.FORBIDDEN).json({
         message: 'Wrong password.',
@@ -60,14 +67,21 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
       }))
     }
 
-    res.setHeader("Authorization", token);
+    res.setHeader("Authorization", accessToken);
     res.setHeader(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
+    res.cookie(`jwt`, refreshToken,{
+      maxAge: 40 * 60 * 1000,
+      secure: false,
+      httpOnly: false,
+      sameSite: 'lax'
+    });
+
     return res
       .status(StatusCodes.OK)
-      .json({ message: "User has authorization", token, userId: user.id, status: StatusCodes.OK });
+      .json({ message: "User has authorization", accessToken, userId: user.id, status: StatusCodes.OK });
   } catch {
     return next(res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: 'Something goes wrong! Try again later.',

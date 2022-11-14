@@ -1,7 +1,7 @@
-import {IUser} from "../../types";
+import {IUser} from "../../../types";
 
 const bcrypt = require("bcrypt");
-const User = require('../../entity/User');
+const User = require('../../../entity/User');
 
 const findByCredentials = async (
   email: string,
