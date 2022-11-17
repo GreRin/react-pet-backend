@@ -1,0 +1,2 @@
+LOG: POST /api/restorePassword Query parameters: {} Body: {"email":"rigor1988@gmail.com","password":""} 200 
+LOG: POST /api/login Query parameters: {} Body: {"email":"rigor1988@gmail.com","password":"Ah21d6Rv16"} 200 

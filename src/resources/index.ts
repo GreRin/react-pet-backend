@@ -4,6 +4,7 @@ import { router as userRouter } from './user/user.router';
 import { router as fundsRouter } from './funds/fund.router';
 import { router as donationsRouter } from './donation/donation.router';
 import { router as refreshTokenRouter } from './auth/refreshToken';
+import { router as restorePassword } from './auth/restorePassword';
 
 export const routes = {
   loginRouter,
@@ -12,4 +13,5 @@ export const routes = {
   donationsRouter,
   signupRouter,
   refreshTokenRouter,
+  restorePassword,
 };

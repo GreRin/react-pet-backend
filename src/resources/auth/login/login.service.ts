@@ -14,4 +14,12 @@ export const findByCredentials = async (
   return user;
 };
 
-export default { findByCredentials };
+export const findByEmail = async (
+  email: string
+): Promise<Partial<IUser> | undefined> => {
+  const user = await User.findOne({email});
+  if (!user) return undefined;
+  return user;
+};
+
+export default { findByCredentials, findByEmail };
