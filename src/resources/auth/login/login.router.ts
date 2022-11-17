@@ -69,7 +69,7 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
       }))
     }
     // Set accessToken to database
-    await setAccessToken(`${user.id }access`, accessToken);
+    await setAccessToken(user.id, accessToken);
     await setAccessToken(`${user.id }refresh`, refreshToken);
 
     res.setHeader(

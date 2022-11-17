@@ -4,6 +4,7 @@ import {StatusCodes} from "http-status-codes";
 import {check, validationResult} from "express-validator";
 import authService from "./login/login.service";
 import usersService from "../user/user.service";
+import {sentEmail} from "../../mailer/sentMails";
 
 const generator = require('generate-password');
 
@@ -39,8 +40,10 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
       numbers: true
     });
     updatedUser.password = newPassword;
-    console.log(newPassword);
-    await usersService.updateById(user.id, updatedUser);
+    const newData = await usersService.updateById(user.id, updatedUser);
+
+    // Sent updated data to user
+    await sentEmail(newData);
 
     return res
       .status(StatusCodes.OK)
