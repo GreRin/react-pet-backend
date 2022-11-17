@@ -31,7 +31,7 @@ router.route("/").post(asyncHandler(async (req: Request, _res: any) => {
         accessToken = jwt.sign(
           { userId: decoded.id, email: decoded.email },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: '10s' }
+          { expiresIn: '5m' }
         );
         userData = { userId: decoded.id, email: decoded.email };
         return _res.json({ decoded, accessToken })

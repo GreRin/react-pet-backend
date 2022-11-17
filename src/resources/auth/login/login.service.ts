@@ -7,7 +7,6 @@ export const findByCredentials = async (
   email: string,
   password: string
 ): Promise<Partial<IUser> | undefined> => {
-  console.log(email, password);
   const user = await User.findOne({email});
   if (!user) return undefined;
   const isPasswordMatch = await bcrypt.compare(password, user.password);

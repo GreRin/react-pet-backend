@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import {check, validationResult} from "express-validator";
 import authService from "./login.service";
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../../../config/config";
+import {setAccessToken} from "../../../helpers/redisStore";
 
 const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
@@ -45,6 +46,7 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
       { expiresIn: '5m' },
       { algorithm: "RS256" }
     );
+
     const refreshToken = jwt.sign(
       { userId: user.id, email: user.email },
       REFRESH_TOKEN_SECRET,
@@ -66,14 +68,16 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
         status: StatusCodes.FORBIDDEN
       }))
     }
+    // Set accessToken to database
+    await setAccessToken(`${user.id }access`, accessToken);
+    await setAccessToken(`${user.id }refresh`, refreshToken);
 
-    res.setHeader("Authorization", accessToken);
     res.setHeader(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
-    res.cookie(`jwt`, refreshToken,{
-      maxAge: 40 * 60 * 1000,
+    res.cookie(`accessToken`, accessToken,{
+      maxAge: 5 * 60 * 1000,
       secure: false,
       httpOnly: false,
       sameSite: 'lax'

@@ -3,12 +3,19 @@ import bodyParser from "body-parser";
 import { routes } from "./resources";
 import { logger } from "./middlewares";
 import "reflect-metadata";
+import { client } from "./helpers/redisStore";
 
 const cookieParser = require('cookie-parser')
 
 const cors = require("cors");
 const helmet = require("helmet");
 const corsOptions = require('./config/corsOptions');
+
+// Start Redis store
+client.on("connect", () => {
+  console.log("Redis plugged in.");
+});
+client.connect();
 
 const app = express();
 
