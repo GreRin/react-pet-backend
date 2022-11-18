@@ -45,4 +45,6 @@ export type IDonationDto = Omit<IDonation, 'id'>;
 export interface TokenInterface {
   userId: string;
   email: string;
+  iat: number;
+  exp: number;
 }
