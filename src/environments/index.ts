@@ -1,3 +1,3 @@
-// import * as environment from './environment';
-//
-// export const env = environment;
+import * as environment from './environment';
+
+export const env = environment;

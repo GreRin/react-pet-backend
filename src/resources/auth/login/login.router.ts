@@ -12,7 +12,7 @@ const jwt = require("jsonwebtoken");
 export const router = Router();
 
 router.route("/").post([
-  check('email', 'Enter correct e-mail').normalizeEmail().isEmail(),
+  check('email', 'Enter correct e-mail').isEmail(),
   check('password', 'Minimum e-mail length 6 symbols').isLength({ min: 6 })
 ], /* eslint-disable  @typescript-eslint/no-explicit-any */
 asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<any> => {

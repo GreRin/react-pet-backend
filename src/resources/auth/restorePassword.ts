@@ -4,14 +4,14 @@ import {StatusCodes} from "http-status-codes";
 import {check, validationResult} from "express-validator";
 import authService from "./login/login.service";
 import usersService from "../user/user.service";
-import {sentEmail} from "../../mailer/sentMails";
+import {sentGmailEmail} from "../../mailer/sentMails";
 
 const generator = require('generate-password');
 
 export const router = Router();
 
 router.route("/").post([
-  check('email', 'Enter correct e-mail').normalizeEmail().isEmail(),
+  check('email', 'Enter correct e-mail').isEmail(),
 ], /* eslint-disable  @typescript-eslint/no-explicit-any */
 asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<any> => {
   try {
@@ -43,7 +43,8 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
     const newData = await usersService.updateById(user.id, updatedUser);
 
     // Sent updated data to user
-    await sentEmail(newData);
+    // await sentEmail(newData, newPassword);
+    await sentGmailEmail(newData, newPassword);
 
     return res
       .status(StatusCodes.OK)
