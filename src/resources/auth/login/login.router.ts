@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import {check, validationResult} from "express-validator";
 import authService from "./login.service";
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../../../config/config";
-import {checkAccessToken, setAccessToken} from "../../../helpers/redisStore";
+import {setAccessToken} from "../../../helpers/redisStore";
 
 const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
@@ -43,7 +43,7 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
     const accessToken = jwt.sign(
       { userId: user.id, email: user.email },
       ACCESS_TOKEN_SECRET,
-      { expiresIn: '5m' },
+      { expiresIn: '5s' },
       { algorithm: "RS256" }
     );
 
@@ -71,8 +71,6 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
     // Set accessToken and refreshToken to Redis database
     await setAccessToken(`refreshToken-${user.id }`, refreshToken);
     await setAccessToken(`accessToken-${user.id }`, accessToken);
-
-    await checkAccessToken(`accessToken-${user.id }`);
 
     res.setHeader(
       "Access-Control-Allow-Headers",

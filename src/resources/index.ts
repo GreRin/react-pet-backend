@@ -5,6 +5,7 @@ import { router as fundsRouter } from './funds/fund.router';
 import { router as donationsRouter } from './donation/donation.router';
 import { router as refreshTokenRouter } from './auth/refreshToken';
 import { router as restorePassword } from './auth/restorePassword';
+import { router as logoutRouter } from './auth/logout/logout.router';
 
 export const routes = {
   loginRouter,
@@ -14,4 +15,5 @@ export const routes = {
   signupRouter,
   refreshTokenRouter,
   restorePassword,
+  logoutRouter,
 };

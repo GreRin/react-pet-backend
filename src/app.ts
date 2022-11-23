@@ -16,7 +16,7 @@ const app = express();
 app.use(helmet());
 app.use(cookieParser());
 
-const { userRouter, fundsRouter, donationsRouter, loginRouter, signupRouter, refreshTokenRouter, restorePassword } = routes;
+const { userRouter, fundsRouter, donationsRouter, loginRouter, signupRouter, refreshTokenRouter, restorePassword, logoutRouter } = routes;
 
 const {
   requestLogger,
@@ -38,6 +38,7 @@ app.use(cors(corsOptions));
 
 app.use("/api/signup", signupRouter);
 app.use("/api/login", loginRouter);
+app.use("/api/logout", logoutRouter)
 app.use("/api/refreshToken", refreshTokenRouter);
 app.use("/api/restorePassword", restorePassword);
 app.use(auth);

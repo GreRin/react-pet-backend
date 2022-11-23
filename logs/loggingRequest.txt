@@ -1,0 +1,2 @@
+LOG: POST /api/login Query parameters: {} Body: {"email":"rigor1988@gmail.com","password":"nmI8pEwfyF"} 200 
+LOG: POST /api/logout Query parameters: {} Body: {"userId":"4dc8b450-3f3d-433e-b5dc-e17fa4f0b7d1"} 200 

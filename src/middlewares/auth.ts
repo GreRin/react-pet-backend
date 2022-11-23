@@ -13,7 +13,7 @@ const auth = asyncHandler(async (req: Request, _res: Response, next: NextFunctio
   }
 
   try {
-    let sessionToken = req.headers.authorization;
+    let sessionToken = req.cookies.accessToken;
     if (sessionToken && sessionToken.indexOf('Bearer ') === 0) {
       sessionToken = sessionToken.slice(7);
     }
@@ -27,7 +27,7 @@ const auth = asyncHandler(async (req: Request, _res: Response, next: NextFunctio
   } catch (error) {
     return next(createError(StatusCodes.UNAUTHORIZED, `UNAUTHORIZED`));
   }
-
+  console.log('Everithing OK');
   return next();
 });
 
