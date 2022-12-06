@@ -3,6 +3,10 @@ import bodyParser from "body-parser";
 import { routes } from "./resources";
 import { logger } from "./middlewares";
 import "reflect-metadata";
+import { schema } from "./graphQL/schemas";
+import { root } from "./graphQL/resolver";
+
+const expressGraphql = require('express-graphql').graphqlHTTP;
 
 const cookieParser = require('cookie-parser')
 
@@ -13,7 +17,7 @@ const corsOptions = require('./config/corsOptions');
 const app = express();
 
 // allow the app to use cookieparser
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false }));
 app.use(cookieParser());
 
 const { userRouter, fundsRouter, donationsRouter, loginRouter, signupRouter, refreshTokenRouter, restorePassword, logoutRouter } = routes;
@@ -41,6 +45,11 @@ app.use("/api/login", loginRouter);
 app.use("/api/logout", logoutRouter)
 app.use("/api/refreshToken", refreshTokenRouter);
 app.use("/api/restorePassword", restorePassword);
+app.use('/api/graphql', expressGraphql({
+  schema,
+  rootValue: root,
+  graphiql: true
+}));
 app.use(auth);
 app.use("/api/users", userRouter);
 app.use("/api/funds", fundsRouter);

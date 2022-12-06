@@ -1,2 +1,9 @@
-LOG: POST /api/login Query parameters: {} Body: {"email":"rigor1988@gmail.com","password":"nmI8pEwfyF"} 200 
-LOG: POST /api/logout Query parameters: {} Body: {"userId":"4dc8b450-3f3d-433e-b5dc-e17fa4f0b7d1"} 200 
+LOG: POST /api/graphql? Query parameters: {} Body: {"query":"query getCourseForTopic($courseTopic: String!) {\n  courses(topic: $courseTopic) {\n    title\n    author\n    description\n    topic\n    url\n  }\n}\n\nquery GetCoursesWithFragments($courseID1: Int!, $courseID2: Int!) {\n  course1: course(id: $courseID1) {\n    ...courseFields\n  }\n  course2: course(id: $courseID2) {\n    ...courseFields\n  }\n}\n\nmutation updateCourseTopic($id: Int!, $topic: String!) {\n  updateCourseTopic(id: $id, topic: $topic) {\n    ...courseFields\n  }\n}\n\nfragment courseFields on Course {\n  title\n  author\n  description\n  topic\n  url\n}","variables":{"courseTopic":"Node.js","courseID1":1,"courseID2":3,"id":1,"topic":"Java"},"operationName":"updateCourseTopic"} 200 
+LOG: GET /favicon.ico Query parameters: {} Body: {} 401 
+LOG: GET /favicon.ico Query parameters: {} Body: {} 401 
+LOG: GET /favicon.ico Query parameters: {} Body: {} 401 
+LOG: GET /favicon.ico Query parameters: {} Body: {} 401 
+LOG: GET /favicon.ico Query parameters: {} Body: {} 401 
+LOG: GET /favicon.ico Query parameters: {} Body: {} 401 
+LOG: GET /favicon.ico Query parameters: {} Body: {} 401 
+LOG: POST /api/graphql? Query parameters: {} Body: {"query":"query getCourseForTopic($courseTopic: String!) {\n  courses(topic: $courseTopic) {\n    title\n    author\n    description\n    topic\n    url\n  }\n}\n\nquery GetCoursesWithFragments($courseID1: Int!, $courseID2: Int!) {\n  course1: course(id: $courseID1) {\n    ...courseFields\n  }\n  course2: course(id: $courseID2) {\n    ...courseFields\n  }\n}\n\nmutation updateCourseTopic($id: Int!, $topic: String!) {\n  updateCourseTopic(id: $id, topic: $topic) {\n    ...courseFields\n  }\n}\n\nfragment courseFields on Course {\n  title\n  author\n  description\n  topic\n  url\n}","variables":{"courseTopic":"Node.js","courseID1":1,"courseID2":3,"id":1,"topic":"Java Script"},"operationName":"updateCourseTopic"} 200 
