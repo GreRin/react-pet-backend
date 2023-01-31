@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from "uuid";
-import {Id, IUser} from "../../types";
-import {sentCancelationEmail} from "../../mailer/sentMails";
+import {IUser} from "../../types";
+// import {sentCancelationEmail} from "../../mailer/sentMails";
 
 const bcrypt = require('bcrypt');
 const User = require("../../entity/User");
@@ -10,8 +10,8 @@ const getAll = (): Promise<IUser[]> => User.find();
 // const getByLogin = (email: string): Promise<User | undefined> =>
 //   getRepository(User).findOne({ email });
 //
-const getById = async (id: Id): Promise<Partial<IUser>> => {
-  const res = await User.findOne({id});
+const getById = async (email: string): Promise<Partial<IUser>> => {
+  const res = await User.findOne({ email });
   return res;
 };
 
@@ -39,9 +39,10 @@ const updateById = async (
 };
 
 const deleteById = async (id: string): Promise<"DELETED" | "NOT_FOUND"> => {
-  const user = await getById(id);
-  sentCancelationEmail(user);
+  // const user = await getById(id);
+  // sentCancelationEmail(user);
   const delitionRes = await User.deleteOne({id});
+
   if (delitionRes.affected) return "DELETED";
   return "NOT_FOUND";
 };

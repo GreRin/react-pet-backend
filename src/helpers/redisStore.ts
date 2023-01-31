@@ -17,7 +17,6 @@ client.connect();
 
 const setAccessToken = async (userId: string, accessToken: string) => {
   try {
-    // console.log('set access token', userId);
     return Promise.resolve(client.set(userId, accessToken)).then((res) => res);
   } catch (error) {
     return error;

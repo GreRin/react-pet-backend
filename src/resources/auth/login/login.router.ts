@@ -43,7 +43,7 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
     const accessToken = jwt.sign(
       { userId: user.id, email: user.email },
       ACCESS_TOKEN_SECRET,
-      { expiresIn: '5s' },
+      { expiresIn: '5m' },
       { algorithm: "RS256" }
     );
 
@@ -68,14 +68,16 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
         status: StatusCodes.FORBIDDEN
       }))
     }
+
     // Set accessToken and refreshToken to Redis database
-    await setAccessToken(`refreshToken-${user.id }`, refreshToken);
-    await setAccessToken(`accessToken-${user.id }`, accessToken);
+    setAccessToken(`refreshToken-${user.id }`, refreshToken);
+    setAccessToken(`accessToken-${user.id }`, accessToken);
 
     res.setHeader(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
+
     res.cookie(`accessToken`, accessToken,{
       maxAge: 5 * 60 * 1000,
       secure: false,

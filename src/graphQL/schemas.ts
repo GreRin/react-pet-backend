@@ -2,6 +2,7 @@ const { buildSchema } = require('graphql');
 
 export const schema = buildSchema(`
     type Query {
+        getAllCourses: [Course]
         course(id: Int!): Course
         courses(topic: String): [Course]
     }

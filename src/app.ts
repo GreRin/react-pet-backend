@@ -20,14 +20,13 @@ const app = express();
 app.use(helmet({ contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false }));
 app.use(cookieParser());
 
-const { userRouter, fundsRouter, donationsRouter, loginRouter, signupRouter, refreshTokenRouter, restorePassword, logoutRouter } = routes;
+const { userRouter, albumsRouter, donationsRouter, loginRouter, signupRouter, refreshTokenRouter, restorePassword, logoutRouter } = routes;
 
 const {
   requestLogger,
   errorLogger,
   unhandledRejectionLogger,
   unhandledExceptionLogger,
-  auth
 } = logger;
 
 app.use(express.json());
@@ -50,9 +49,9 @@ app.use('/api/graphql', expressGraphql({
   rootValue: root,
   graphiql: true
 }));
-app.use(auth);
+// app.use(auth);
 app.use("/api/users", userRouter);
-app.use("/api/funds", fundsRouter);
+app.use("/api/albums", albumsRouter);
 app.use("/api/donations", donationsRouter);
 
 app.use(errorLogger);

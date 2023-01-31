@@ -19,19 +19,21 @@ export interface IUser extends IEntity {
   name?: string;
   email: string;
   password: string;
-  link: [];
+  albumsList: [];
 }
 
 export type IUserDto = Omit<IUser, 'id'>;
 
-export interface IFund extends IEntity {
-  name: string;
-  totalFunds: number;
-  createdAt?: Date;
+export interface IAlbum extends IEntity {
+  userId: string;
+  title: string;
+  foto: [];
+  owner: string;
+  createdAt: Date;
   updatedAt: Date;
 }
 
-export type IFundDto = Omit<IFund, 'id'>;
+export type IAlbumDto = Omit<IAlbum, 'id'>;
 
 export interface IDonation extends IEntity {
   toFund: string;

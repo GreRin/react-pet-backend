@@ -13,10 +13,10 @@ const schema = new Schema({
     type: String,
     required: true,
   },
-  link: [
+  albums: [
     {
       type: Types.ObjectId,
-      ref: 'Link',
+      ref: 'Album',
     },
   ],
 });

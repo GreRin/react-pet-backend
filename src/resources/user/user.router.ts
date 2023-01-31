@@ -1,4 +1,4 @@
-import {Router, Request, Response, NextFunction} from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
 import { StatusCodes } from "http-status-codes";
 import { check, validationResult } from "express-validator";
@@ -58,7 +58,7 @@ asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<an
     const { email, password } = req.body;
     const candidate = await usersService.getById(email);
     if (candidate) {
-      return next(createError(StatusCodes.NOT_FOUND, `User already exist`));
+      return next(createError(StatusCodes.NOT_FOUND, {code: StatusCodes.NOT_FOUND, message:`User already exist`}));
     }
 
     const user = await usersService.create(email, password);

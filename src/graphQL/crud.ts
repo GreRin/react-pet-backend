@@ -1,5 +1,9 @@
 import { coursesData } from './index';
 
+const getAllCourses = function () {
+  return coursesData;
+};
+
 const getCourse = function (args: any) {
   const { id } = args;
   return coursesData.filter((course) => course.id === id)[0];
@@ -24,4 +28,4 @@ const updateCourseTopic = function ({ id, topic }: any) {
   return coursesData.filter((course) => course.id === id)[0];
 };
 
-export default { getCourse, getCourses, updateCourseTopic };
+export default { getAllCourses, getCourse, getCourses, updateCourseTopic };
