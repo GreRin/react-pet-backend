@@ -53,36 +53,36 @@ router.route("/").post(
   })
 );
 
-router.route("/:id").put(
-  // asyncHandler(async (req: Request, _res: Response) => {
-  //   const { id } = req.params;
-  //   if (id) {
-  // const fundData: IFundDto = {
-  //   name: req.body.name,
-  //   totalFunds: req.body.totalFunds,
-  //   updatedAt: new Date(),
-  // };
-  // const fund: Partial<IFundDto> = await fundService.updateById(
-  //   id,
-  //   fundData
-  // );
-  // if (!fund)
-  //   res
-  //     .status(StatusCodes.NOT_FOUND)
-  //     .json({ message: "Fund not updated!" });
-  //   res.status(StatusCodes.OK).json(Fund.toResponse(fund));
-  //   }
-  // })
+router.route("/:userId/album/:id").put(
+  asyncHandler(async (req: Request, res: Response): Promise<any> => {
+    try {
+      const { id } = req.params;
+      if (!id) return res.status(StatusCodes.BAD_REQUEST);
+      const album: Partial<IAlbum> = await albumsService.updateById(id, req.body);
+      return res.status(StatusCodes.OK).json(album);
+    } catch (error) {
+      return res.status(StatusCodes.NOT_MODIFIED).json({
+        message: 'User NOT updated',
+        error: error.message
+      })
+    }
+  })
 );
 
-router.route("/:id").delete(
-  // asyncHandler(async (req: Request, _res: Response) => {
-  //   const { id } = req.params;
-  //   if (id) {
-  //   await fundService.deleteById(id);
-  //   res
-  //     .status(StatusCodes.NO_CONTENT)
-  //     .json({ message: "User successfully delete" });
-  //   }
-  // })
+router.route("/:userId/album/:id").delete(
+  asyncHandler(async (req: Request, res: Response): Promise<any> => {
+    try {
+      const { id } = req.params;
+      if (!id) return res.status(StatusCodes.BAD_REQUEST);
+      await albumsService.deleteById(id);
+      return res
+        .status(StatusCodes.NO_CONTENT)
+        .json({ message: "Album successfully delete" });
+    } catch (error) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: 'Album NOT deleted',
+        error
+      })
+    }
+  })
 );

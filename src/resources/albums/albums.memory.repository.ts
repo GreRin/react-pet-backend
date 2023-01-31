@@ -24,20 +24,17 @@ const create = async (body: IAlbumDto): Promise<Partial<IAlbum>> => {
   return savedAlbum;
 };
 
-// const updateById = async (
-//   id: string,
-//   fund: IFundDto
-// ): Promise<Fund | undefined> => {
-//   const fundRepository = await getRepository(Fund);
-//   const res: Partial<Fund> | undefined = await getById(id);
-//   return res && fundRepository.save({ ...res, ...fund });
-// };
-//
-// const deleteById = async (id: string): Promise<"DELETED" | "NOT_FOUND"> => {
-//   const fundsRepository = await getRepository(Fund);
-//   const delitionRes = await fundsRepository.delete(id);
-//   if (delitionRes.affected) return "DELETED";
-//   return "NOT_FOUND";
-// };
-//
-export default { getAll, create, getById };
+const updateById = async (id: string, album: IAlbum): Promise<IAlbum> => {
+  await Album.updateOne({_id: id}, {title: album.title, updatedAt: album.updatedAt});
+  const res = await Album.find().where({'_id': id})
+  return res;
+};
+
+const deleteById = async (id: string): Promise<"DELETED" | "NOT_FOUND"> => {
+  const delitionRes = await Album.deleteOne({_id: id});
+
+  if (delitionRes.affected) return "DELETED";
+  return "NOT_FOUND";
+};
+
+export default { getAll, create, getById, updateById, deleteById };

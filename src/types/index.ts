@@ -27,8 +27,8 @@ export type IUserDto = Omit<IUser, 'id'>;
 export interface IAlbum extends IEntity {
   userId: string;
   title: string;
-  foto: [];
-  owner: string;
+  foto?: [];
+  owner?: string;
   createdAt: Date;
   updatedAt: Date;
 }

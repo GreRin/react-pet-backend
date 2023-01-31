@@ -9,10 +9,10 @@ const getById = (id: string): Promise<Partial<IAlbum> | undefined> =>
 const create = (body: IAlbumDto): Promise<Partial<IAlbum>> =>
   albumsRepo.create(body);
 
-// const updateById = async (id: string, fund: IFundDto): Promise<Partial<Fund>> =>
-//   Fund.toResponse(await fundRepo.updateById(id, fund)) as Fund;
-//
-// const deleteById = (id: string): Promise<'DELETED' | 'NOT_FOUND'> =>
-//   fundRepo.deleteById(id);
-//
-export default { getAll, create, getById };
+const updateById = (id: string, album: IAlbum): Promise<IAlbum> =>
+  albumsRepo.updateById(id, album);
+
+const deleteById = (id: string): Promise<'DELETED' | 'NOT_FOUND'> =>
+  albumsRepo.deleteById(id);
+
+export default { getAll, create, getById, updateById, deleteById };
