@@ -50,3 +50,10 @@ export interface TokenInterface {
   iat: number;
   exp: number;
 }
+
+export interface IPhoto {
+  title: string;
+  url: string;
+}
+
+export type IPhotoDto = Omit<IPhoto, 'id'>;

@@ -3,7 +3,7 @@ import {IAlbum, IAlbumDto, Id} from "../../types/index";
 const Album = require("../../entity/Album");
 
 const getAll = async (userId: string): Promise<IAlbum[]> => {
-  const res = await Album.find().where({'id': userId})
+  const res = await Album.find().where({'userId': userId})
   return res;
 };
 
@@ -18,6 +18,7 @@ const create = async (body: IAlbumDto): Promise<Partial<IAlbum>> => {
     title: body.title,
     createdAt: new Date(),
     updatedAt: new Date(),
+    foto: []
   });
 
   const savedAlbum = await newAlbum.save();

@@ -46,6 +46,8 @@
     "no-multiple-empty-lines": "error",
     "prefer-const": "error",
     "no-use-before-define": "error",
-    "@typescript-eslint/no-var-requires": 0
+    "@typescript-eslint/no-var-requires": 0,
+    "ignoreTrailingComments": 0,
+    "ignoreUrls": 0
   }
 }
