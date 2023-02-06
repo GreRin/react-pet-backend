@@ -1,0 +1,10 @@
+LOG: OPTIONS /api/photos/63e1303a2ac7a41f2593259b Query parameters: {} Body: {} 200 
+LOG: DELETE /api/photos/63e1303a2ac7a41f2593259b Query parameters: {} Body: {"albumId":"63e12e2c2ac7a41f25932576","photo":{"title":"Technician","ref":"https://loremflickr.com/150/150/abstract?lock=76493","_id":"63e1303a2ac7a41f2593259b"}} 204 
+LOG: GET /api/users Query parameters: {} Body: {} 200 
+LOG: GET /api/users Query parameters: {} Body: {} 200 
+LOG: GET /api/photos/63e12e2c2ac7a41f25932579 Query parameters: {} Body: {} 200 
+LOG: POST /api/login Query parameters: {} Body: {"email":"rigor1988@gmail.com","password":"rFIk3w0lIA"} 200 
+LOG: GET /api/users Query parameters: {} Body: {} 200 
+LOG: GET /api/users Query parameters: {} Body: {} 200 
+LOG: GET /api/albums/abf112c7-aab9-4310-aafd-f0ff7ac148a9?userId=abf112c7-aab9-4310-aafd-f0ff7ac148a9 Query parameters: {"userId":"abf112c7-aab9-4310-aafd-f0ff7ac148a9"} Body: {} 200 
+LOG: GET /api/photos/63e12e2c2ac7a41f25932576 Query parameters: {} Body: {} 200 

@@ -19,8 +19,8 @@ const create = async (body: any): Promise<Partial<IPhoto> | undefined> => {
   return res;
 }
 
-const deleteById = async (id: string): Promise<"DELETED" | "NOT_FOUND"> => {
-  const delitionRes = await Album.deleteOne({_id: id});
+const deleteById = async (data: any): Promise<"DELETED" | "NOT_FOUND"> => {
+  const delitionRes = await Album.findOneAndUpdate({ "_id": data.albumId }, {"$pull": { foto: {_id: data.photo._id}}})
 
   if (delitionRes.affected) return "DELETED";
   return "NOT_FOUND";

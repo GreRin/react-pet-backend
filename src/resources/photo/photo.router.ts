@@ -3,7 +3,6 @@ import asyncHandler from "express-async-handler";
 import {StatusCodes} from "http-status-codes";
 import {IPhoto} from "../../types";
 import photoService from "./photo.service";
-import albumsService from "../albums/albums.service";
 
 export const router = Router();
 
@@ -41,15 +40,14 @@ router.route("/").post(
 router.route("/:id").delete(
   asyncHandler(async (req: Request, res: Response): Promise<any> => {
     try {
-      const { id } = req.params;
-      if (!id) return res.status(StatusCodes.BAD_REQUEST);
-      await albumsService.deleteById(id);
+      if (!req.body) return res.status(StatusCodes.BAD_REQUEST);
+      await photoService.deleteById(req.body);
       return res
         .status(StatusCodes.NO_CONTENT)
-        .json({ message: "Album successfully delete" });
+        .json({ message: "Photo successfully delete" });
     } catch (error) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-        message: 'Album NOT deleted',
+        message: 'Photo NOT deleted',
         error
       })
     }
