@@ -2,9 +2,9 @@ const { buildSchema } = require('graphql');
 
 export const schema = buildSchema(`
     type Query {
-        getAllCourses: [Course]
+        getAllCourses: [Course!]
         course(id: Int!): Course
-        courses(topic: String): [Course]
+        courses(topic: String): [Course!]
     }
     type Mutation {
         updateCourseTopic(id: Int!, topic: String!): Course
