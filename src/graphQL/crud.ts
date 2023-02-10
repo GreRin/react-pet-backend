@@ -17,6 +17,11 @@ const getCourses = function (args: any) {
   return coursesData;
 };
 
+const createCourse = function (course: any) {
+  coursesData.push(course);
+  return course;
+};
+
 const updateCourseTopic = function ({ id, topic }: any) {
   coursesData.map((course) => {
     if (course.id !== id) {
@@ -28,4 +33,4 @@ const updateCourseTopic = function ({ id, topic }: any) {
   return coursesData.filter((course) => course.id === id)[0];
 };
 
-export default { getAllCourses, getCourse, getCourses, updateCourseTopic };
+export default { getAllCourses, getCourse, getCourses, createCourse, updateCourseTopic };
