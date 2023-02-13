@@ -13,8 +13,7 @@ const auth = asyncHandler(async (req: Request, _res: Response, next: NextFunctio
   }
 
   try {
-    let sessionToken = req.cookies.accessToken;
-    sessionToken = sessionToken || req.rawHeaders[1];
+    let sessionToken = req.cookies.accessToken || req.headers.authorization;
     if (sessionToken && sessionToken.indexOf('Bearer ') === 0) {
       sessionToken = sessionToken.slice(7);
     }

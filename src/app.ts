@@ -5,6 +5,7 @@ import { logger } from "./middlewares";
 import "reflect-metadata";
 import { schema } from "./graphQL/schemas";
 import { root } from "./graphQL/resolver";
+import { auth } from "./middlewares/auth";
 
 const expressGraphql = require('express-graphql').graphqlHTTP;
 
@@ -53,12 +54,16 @@ app.use("/api/login", loginRouter);
 app.use("/api/logout", logoutRouter)
 app.use("/api/refreshToken", refreshTokenRouter);
 app.use("/api/restorePassword", restorePassword);
+app.use(auth);
 app.use('/api/graphql', expressGraphql({
   schema,
   rootValue: root,
-  graphiql: true
+  graphiql: true,
+  context: (req: { auth: any; }, _res: any, _graphQLParams: any) => {
+    console.log(req)
+    return {auth: req.auth}
+  }
 }));
-// app.use(auth);
 app.use("/api/users", userRouter);
 app.use("/api/albums", albumsRouter);
 app.use("/api/photos", photosRouter);
